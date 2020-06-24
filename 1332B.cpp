@@ -14,6 +14,7 @@ using namespace std;
 #define prll(x, y) printf("%lld %lld\n", x, y)
 
 #define For(i, x, y) for(ll i = x; i < y; i++)
+#define Mem(ara, x) memset(ara, x, sizeof(ara))
 
 #define pb push_back
 #define pll pair <ll, ll >
@@ -45,7 +46,7 @@ scl(test); while(test--){
 
 	ll primes[11] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
 	ll colors[11];
-	memset(colors, -1, sizeof(colors));
+	Mem(colors, -1);
 
 	For(i, 0, n) scl(a[i]);
 

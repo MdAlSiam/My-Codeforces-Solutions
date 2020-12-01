@@ -3,7 +3,7 @@
 using namespace std;
 #include <bits/stdc++.h>
 
-#define ll long long int
+#define ll int 
 #define dd double
 
 #define scl(x) scanf("%lld", &x)
@@ -42,38 +42,48 @@ ll t, test, temp;
 ll n, m, k, kount;
 ll a, b, c, ans, u, v;
 ll x, y, z = -1, maxi, mini;
-ll p;
-ll addCost, rmvCost;
+ll ara[502];
+ll dp[502][502][502];
+
+ll solve(ll index, ll lastNum, ll curr_x) {
+    if (index > n) return 0;
+
+    if (dp[index][lastNum][curr_x] != -1) return dp[index][lastNum][curr_x];
+
+    ll ansF = 100000;
+
+    if (ara[index] > curr_x and curr_x >= lastNum) {
+        ansF = min(ansF, 1+solve(index+1, curr_x, ara[index]));
+    }
+    if (ara[index] >= lastNum) {
+        ansF = min(ansF, solve(index+1, ara[index], curr_x));
+    }
+
+    return dp[index][lastNum][curr_x] = ansF;
+}
 
 void solve() {
-    cin >> n >> p >> k;
-    string str;
-    cin >> str;
-    str = '#' + str;
-    cin >> addCost >> rmvCost;
+    scanf("%d %d", &n, &x);
+    For (i, 1, n+1) {
+        scanf("%d", ara+i);
+    }
 
-    ll backCumCost[n+10];
-    Mem(backCumCost, 0);
-
-    for (ll i = str.size()-1; i >= 1; i--) {
-        if (str[i] == '0') {
-            backCumCost[i] += addCost;
-        }
-        if (i-k >= 1) {
-            backCumCost[i-k] += backCumCost[i];
+    For (i, 0, n+2) {
+        For (j, 0, 502) {
+            For (k, 0, 502) {
+                dp[i][j][k] = -1;
+            }
         }
     }
 
-    ans = inf;
-    ll extraCost = 0;
+    ans = solve(1, 0, x);
 
-    for (ll start = p; start <= n; start++) {
-        ll ansHere = backCumCost[start] + extraCost;
-        ans = min(ans, ansHere);
-        extraCost += rmvCost;
+    if (ans > n) {
+        printf("-1\n");
     }
-
-    cout << ans << endl;
+    else {
+        printf("%d\n", ans);
+    }
 }
 
 int main() {
@@ -81,4 +91,4 @@ int main() {
     scl(test);
     while (test--) solve();
 }
- 
+

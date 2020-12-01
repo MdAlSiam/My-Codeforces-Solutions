@@ -42,38 +42,54 @@ ll t, test, temp;
 ll n, m, k, kount;
 ll a, b, c, ans, u, v;
 ll x, y, z = -1, maxi, mini;
-ll p;
-ll addCost, rmvCost;
 
 void solve() {
-    cin >> n >> p >> k;
-    string str;
-    cin >> str;
-    str = '#' + str;
-    cin >> addCost >> rmvCost;
-
-    ll backCumCost[n+10];
-    Mem(backCumCost, 0);
-
-    for (ll i = str.size()-1; i >= 1; i--) {
-        if (str[i] == '0') {
-            backCumCost[i] += addCost;
+    scll(n, k);
+    ll ara[n];
+    ll numKount[105];
+    Mem(numKount, 0);
+    bool present[105];
+    Mem(present, false);
+    ll maxKount = -1;
+    For (i, 0, n) {
+        scl(ara[i]);
+        numKount[ara[i]]++;
+        if (numKount[ara[i]] > maxKount) {
+            maxKount = numKount[ara[i]];
         }
-        if (i-k >= 1) {
-            backCumCost[i-k] += backCumCost[i];
-        }
+        present[ara[i]] = true;
     }
 
     ans = inf;
-    ll extraCost = 0;
+   
+    For (i, 1, 101) {
 
-    for (ll start = p; start <= n; start++) {
-        ll ansHere = backCumCost[start] + extraCost;
-        ans = min(ans, ansHere);
-        extraCost += rmvCost;
+        if (not present[i]) {
+            continue;
+        }
+
+        ll currTarget = i;
+        ll index = 0;
+        ll anshere = 0;
+        while(true) {
+            if (index >= n) {
+                break;
+            }
+
+            if (ara[index] == currTarget) {
+                index++;
+            }
+            else {
+                anshere++;
+                index += k;
+            }
+        }
+
+        ans = min(ans, anshere);
     }
 
-    cout << ans << endl;
+    prl(ans);
+
 }
 
 int main() {
@@ -81,4 +97,3 @@ int main() {
     scl(test);
     while (test--) solve();
 }
- 

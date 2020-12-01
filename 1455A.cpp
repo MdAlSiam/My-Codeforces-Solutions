@@ -42,38 +42,11 @@ ll t, test, temp;
 ll n, m, k, kount;
 ll a, b, c, ans, u, v;
 ll x, y, z = -1, maxi, mini;
-ll p;
-ll addCost, rmvCost;
 
 void solve() {
-    cin >> n >> p >> k;
     string str;
     cin >> str;
-    str = '#' + str;
-    cin >> addCost >> rmvCost;
-
-    ll backCumCost[n+10];
-    Mem(backCumCost, 0);
-
-    for (ll i = str.size()-1; i >= 1; i--) {
-        if (str[i] == '0') {
-            backCumCost[i] += addCost;
-        }
-        if (i-k >= 1) {
-            backCumCost[i-k] += backCumCost[i];
-        }
-    }
-
-    ans = inf;
-    ll extraCost = 0;
-
-    for (ll start = p; start <= n; start++) {
-        ll ansHere = backCumCost[start] + extraCost;
-        ans = min(ans, ansHere);
-        extraCost += rmvCost;
-    }
-
-    cout << ans << endl;
+    cout << str.length() << endl;
 }
 
 int main() {
@@ -81,4 +54,3 @@ int main() {
     scl(test);
     while (test--) solve();
 }
- 

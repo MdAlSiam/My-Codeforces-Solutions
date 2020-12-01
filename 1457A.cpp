@@ -42,38 +42,22 @@ ll t, test, temp;
 ll n, m, k, kount;
 ll a, b, c, ans, u, v;
 ll x, y, z = -1, maxi, mini;
-ll p;
-ll addCost, rmvCost;
+ll r;
+
+ll distance(ll x, ll y, ll r, ll c) {
+    return abs(x-r) + abs(y-c);
+}
 
 void solve() {
-    cin >> n >> p >> k;
-    string str;
-    cin >> str;
-    str = '#' + str;
-    cin >> addCost >> rmvCost;
+    scll(n, m);
+    scll(r, c);
 
-    ll backCumCost[n+10];
-    Mem(backCumCost, 0);
+    ll aa= distance(1, 1, r, c);
+    ll bb= distance(1, m, r, c);
+    ll cc= distance(n, 1, r, c);
+    ll ddd= distance(n, m, r, c);
 
-    for (ll i = str.size()-1; i >= 1; i--) {
-        if (str[i] == '0') {
-            backCumCost[i] += addCost;
-        }
-        if (i-k >= 1) {
-            backCumCost[i-k] += backCumCost[i];
-        }
-    }
-
-    ans = inf;
-    ll extraCost = 0;
-
-    for (ll start = p; start <= n; start++) {
-        ll ansHere = backCumCost[start] + extraCost;
-        ans = min(ans, ansHere);
-        extraCost += rmvCost;
-    }
-
-    cout << ans << endl;
+    cout << max({aa, bb, cc, ddd}) << endl;
 }
 
 int main() {
@@ -81,4 +65,3 @@ int main() {
     scl(test);
     while (test--) solve();
 }
- 
